@@ -18,9 +18,9 @@ export enum Theme {
 }
 
 export const DEFAULT_CONFIG = {
-  submitKey: SubmitKey.CtrlEnter as SubmitKey,
+  submitKey: SubmitKey.Enter as SubmitKey,
   avatar: "1f603",
-  fontSize: 14,
+  fontSize: 15,
   theme: Theme.Auto as Theme,
   tightBorder: !!getClientConfig()?.isApp,
   sendPreviewBubble: true,
@@ -32,13 +32,13 @@ export const DEFAULT_CONFIG = {
 
   modelConfig: {
     model: "gpt-3.5-turbo" as ModelType,
-    temperature: 0.5,
+    temperature: 0.3,
     max_tokens: 2000,
     presence_penalty: 0,
     frequency_penalty: 0,
     sendMemory: true,
-    historyMessageCount: 4,
-    compressMessageLengthThreshold: 1000,
+    historyMessageCount: 5,
+    compressMessageLengthThreshold: 2000,
     template: DEFAULT_INPUT_TEMPLATE,
   },
 };
@@ -55,70 +55,70 @@ export type ModelConfig = ChatConfig["modelConfig"];
 const ENABLE_GPT4 = true;
 
 export const ALL_MODELS = [
-  {
-    name: "gpt-4",
-    available: ENABLE_GPT4,
-  },
-  {
-    name: "gpt-4-0314",
-    available: ENABLE_GPT4,
-  },
-  {
-    name: "gpt-4-0613",
-    available: ENABLE_GPT4,
-  },
-  {
-    name: "gpt-4-32k",
-    available: ENABLE_GPT4,
-  },
-  {
-    name: "gpt-4-32k-0314",
-    available: ENABLE_GPT4,
-  },
-  {
-    name: "gpt-4-32k-0613",
-    available: ENABLE_GPT4,
-  },
+  // {
+  //   name: "gpt-4",
+  //   available: ENABLE_GPT4,
+  // },
+  // {
+  //   name: "gpt-4-0314",
+  //   available: ENABLE_GPT4,
+  // },
+  // {
+  //   name: "gpt-4-0613",
+  //   available: ENABLE_GPT4,
+  // },
+  // {
+  //   name: "gpt-4-32k",
+  //   available: ENABLE_GPT4,
+  // },
+  // {
+  //   name: "gpt-4-32k-0314",
+  //   available: ENABLE_GPT4,
+  // },
+  // {
+  //   name: "gpt-4-32k-0613",
+  //   available: ENABLE_GPT4,
+  // },
   {
     name: "gpt-3.5-turbo",
     available: true,
   },
-  {
-    name: "gpt-3.5-turbo-0301",
-    available: true,
-  },
-  {
-    name: "gpt-3.5-turbo-0613",
-    available: true,
-  },
+  // {
+  //   name: "gpt-3.5-turbo-0301",
+  //   available: true,
+  // },
+  // {
+  //   name: "gpt-3.5-turbo-0613",
+  //   available: true,
+  // },
   {
     name: "gpt-3.5-turbo-16k",
     available: true,
   },
-  {
-    name: "gpt-3.5-turbo-16k-0613",
-    available: true,
-  },
-  {
-    name: "qwen-v1", // 通义千问
-    available: false,
-  },
-  {
-    name: "ernie", // 文心一言
-    available: false,
-  },
-  {
-    name: "spark", // 讯飞星火
-    available: false,
-  },
-  {
-    name: "llama", // llama
-    available: false,
-  },
-  {
-    name: "chatglm", // chatglm-6b
-    available: false,
-  },
+  // {
+  //   name: "gpt-3.5-turbo-16k-0613",
+  //   available: true,
+  // },
+  // {
+  //   name: "qwen-v1", // 通义千问
+  //   available: false,
+  // },
+  // {
+  //   name: "ernie", // 文心一言
+  //   available: false,
+  // },
+  // {
+  //   name: "spark", // 讯飞星火
+  //   available: false,
+  // },
+  // {
+  //   name: "llama", // llama
+  //   available: false,
+  // },
+  // {
+  //   name: "chatglm", // chatglm-6b
+  //   available: false,
+  // },
 ] as const;
 
 export type ModelType = (typeof ALL_MODELS)[number]["name"];

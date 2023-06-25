@@ -28,6 +28,29 @@
   }
 }
 
+.window-check-model{
+  display: flex;
+  justify-content: center;
+  width: 200px;
+  margin: 10px auto 0;
+  background: #eee;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 3px;
+  height: 34px;
+  .window-check-model-item{
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    font-size: 14px;
+    &.active{
+      background: #fff;
+    }
+  }
+}
+
 .window-actions {
   display: inline-flex;
 }
