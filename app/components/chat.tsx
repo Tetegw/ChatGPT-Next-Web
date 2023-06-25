@@ -294,6 +294,8 @@ function ChatAction(props: {
 }) {
   const iconRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
+  const chatStore = useChatStore();
+
   const [width, setWidth] = useState({
     full: 20,
     icon: 20,
@@ -312,7 +314,7 @@ function ChatAction(props: {
 
   useEffect(() => {
     updateWidth();
-  }, []);
+  }, [chatStore.currentSession().mask.modelConfig.model]);
 
   return (
     <div
