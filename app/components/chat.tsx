@@ -486,7 +486,7 @@ export function Chat() {
     state.currentSession(),
     state.currentSessionIndex,
   ]);
-  console.log("session", session);
+  // console.log("session", session);
   const config = useAppConfig();
   const fontSize = config.fontSize;
 
