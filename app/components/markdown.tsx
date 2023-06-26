@@ -26,7 +26,7 @@ export function Mermaid(props: { code: string }) {
         })
         .catch((e) => {
           setHasError(true);
-          console.error("[Mermaid] ", e.message);
+          console.error("[Mermaid ] ", e.message);
         });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
