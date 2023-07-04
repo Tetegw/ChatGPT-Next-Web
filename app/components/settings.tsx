@@ -241,6 +241,12 @@ export function Settings() {
     );
   }
 
+  const Logout = () => {
+    window.localStorage.removeItem("token");
+    window.localStorage.removeItem("userId");
+    navigate(Path.Login);
+  };
+
   const usage = {
     used: updateStore.used,
     subscription: updateStore.subscription,
@@ -486,6 +492,32 @@ export function Settings() {
             ></input>
           </ListItem>
           <ListItem
+            title={Locale.Settings.Token.Title}
+            subTitle={Locale.Settings.Token.SubTitle}
+          >
+            <PasswordInput
+              value={accessStore.token}
+              type="text"
+              placeholder={Locale.Settings.Token.Placeholder}
+              onChange={(e) => {
+                accessStore.updateToken(e.currentTarget.value);
+              }}
+            />
+          </ListItem>
+          <ListItem
+            title={Locale.Settings.Endpoint.Title}
+            subTitle={Locale.Settings.Endpoint.SubTitle}
+          >
+            <input
+              type="text"
+              value={accessStore.openaiUrl}
+              onChange={(e) =>
+                accessStore.updateOpenAiUrl(e.currentTarget.value)
+              }
+            ></input>
+          </ListItem>
+
+          {/* <ListItem
             title={Locale.Settings.AccessCode.Title}
             subTitle={Locale.Settings.AccessCode.SubTitle}
           >
@@ -497,7 +529,7 @@ export function Settings() {
                 accessStore.updateCode(e.currentTarget.value);
               }}
             />
-          </ListItem>
+          </ListItem> */}
         </List>
 
         {/* <List>
@@ -599,6 +631,12 @@ export function Settings() {
             }}
           />
         </List> */}
+
+        <List>
+          <div onClick={() => Logout()} className={styles["logout"]}>
+            退出登录
+          </div>
+        </List>
 
         {shouldShowPromptModal && (
           <UserPromptModal onClose={() => setShowPromptModal(false)} />

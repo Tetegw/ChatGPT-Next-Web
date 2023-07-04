@@ -2,7 +2,14 @@
   padding: 20px;
   overflow: auto;
 }
-
+.logout{
+  padding: 10px 20px;
+  text-align: center;
+  background: #fff;
+  &:hover{
+    filter: brightness(0.9);
+  }
+}
 .avatar {
   cursor: pointer;
 }

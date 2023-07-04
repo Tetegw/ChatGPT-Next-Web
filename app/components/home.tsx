@@ -22,10 +22,12 @@ import {
   Routes,
   Route,
   useLocation,
+  useNavigate,
 } from "react-router-dom";
 import { SideBar } from "./sidebar";
 import { useAppConfig } from "../store/config";
 import { AuthPage } from "./auth";
+import { Login } from "./login";
 import { getClientConfig } from "../config/client";
 
 export function Loading(props: { noLogo?: boolean }) {
@@ -112,10 +114,21 @@ function Screen() {
   const location = useLocation();
   const isHome = location.pathname === Path.Home;
   const isAuth = location.pathname === Path.Auth;
+  const isLogin = location.pathname === Path.Login;
   const isMobileScreen = useMobileScreen();
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadAsyncGoogleFont();
+    // 判断登录，没登录就跳转到登录页面
+    if (!isLogin) {
+      if (
+        !window.localStorage.getItem("token") ||
+        !window.localStorage.getItem("userId")
+      ) {
+        navigate(Path.Login);
+      }
+    }
   }, []);
 
   return (
@@ -129,7 +142,11 @@ function Screen() {
         } ${getLang() === "ar" ? styles["rtl-screen"] : ""}`
       }
     >
-      {isAuth ? (
+      {isLogin ? (
+        <>
+          <Login />
+        </>
+      ) : isAuth ? (
         <>
           <AuthPage />
         </>

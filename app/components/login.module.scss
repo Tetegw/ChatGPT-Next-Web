@@ -1,0 +1,42 @@
+.auth-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+
+  .auth-logo {
+    transform: scale(1.4);
+    margin-bottom: 20px;
+  }
+
+  .auth-title {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 2;
+  }
+
+  .auth-tips {
+    font-size: 14px;
+  }
+
+  .auth-input {
+    margin: 1vh 0;
+    width: 200px;
+    max-width: 100%;
+    text-align: left;
+  }
+
+  .auth-actions {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    button {
+      margin-bottom: 10px;
+      margin-top: 20px;
+      width: 250px;
+    }
+  }
+}

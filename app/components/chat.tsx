@@ -70,6 +70,7 @@ import { ChatCommandPrefix, useChatCommand, useCommand } from "../command";
 import { prettyObject } from "../utils/format";
 import { ExportMessageModal } from "./exporter";
 import { getClientConfig } from "../config/client";
+import { showToast } from "./ui-lib";
 
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
@@ -483,6 +484,7 @@ export function Chat() {
   type RenderMessage = ChatMessage & { preview?: boolean };
 
   const chatStore = useChatStore();
+  const accessStore = useAccessStore();
 
   const [session, sessionIndex] = useChatStore((state) => [
     state.currentSession(),
@@ -584,6 +586,19 @@ export function Chat() {
 
   const doSubmit = (userInput: string) => {
     if (userInput.trim() === "") return;
+
+    // 判断次数
+    if (session.mask.modelConfig.model == "gpt-3.5-turbo-16k") {
+      if (
+        Number(accessStore.gpt16kNumsRemaining) <= 0 &&
+        Number(accessStore.gpt16kNumsRemaining) != -99
+      ) {
+        console.log("次数不足");
+        showToast("今日使用次数不足");
+        return;
+      }
+    }
+
     const matchCommand = chatCommands.match(userInput);
     if (matchCommand.matched) {
       setUserInput("");
@@ -592,7 +607,12 @@ export function Chat() {
       return;
     }
     setIsLoading(true);
-    chatStore.onUserInput(userInput).then(() => setIsLoading(false));
+    chatStore.onUserInput(userInput).then(() => {
+      setIsLoading(false);
+      accessStore.reduceNum(
+        session.mask.modelConfig.model == "gpt-3.5-turbo-16k" ? 2 : 0,
+      );
+    });
     localStorage.setItem(LAST_INPUT_KEY, userInput);
     setUserInput("");
     setPromptHints([]);
@@ -631,7 +651,10 @@ export function Chat() {
         session.mask.modelConfig = { ...config.modelConfig };
       }
     });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // 调用查次数的接口
+    accessStore.getUserUseNum();
   }, []);
 
   // check if should send message
@@ -705,8 +728,6 @@ export function Chat() {
   const context: RenderMessage[] = session.mask.hideContext
     ? []
     : session.mask.context.slice();
-
-  const accessStore = useAccessStore();
 
   if (
     context.length === 0 &&
@@ -1006,6 +1027,14 @@ export function Chat() {
             onSearch("");
           }}
         />
+        {accessStore.gpt16kNumsRemaining != "-99" &&
+          session.mask.modelConfig.model == "gpt-3.5-turbo-16k" && (
+            <div className={styles["model-times"]}>
+              模型{session.mask.modelConfig.model}今日剩余次数：
+              {accessStore.gpt16kNumsRemaining}
+            </div>
+          )}
+        {/* {gpt4NumsRemaining != -99 && session.mask.modelConfig.model == "gpt-4.0-turbo" && <div className={styles["model-times"]}>模型{session.mask.modelConfig.model}今日剩余次数：{gpt4NumsRemaining}</div>} */}
         <div className={styles["chat-input-panel-inner"]}>
           <textarea
             ref={inputRef}

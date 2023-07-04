@@ -14,10 +14,15 @@ export interface AccessControlStore {
   hideUserApiKey: boolean;
   openaiUrl: string;
 
+  gpt16kNumsRemaining: string;
+  gpt4kNumsRemaining: string;
+
   updateToken: (_: string) => void;
   updateCode: (_: string) => void;
   updateOpenAiUrl: (_: string) => void;
   enabledAccessControl: () => boolean;
+  getUserUseNum: () => void;
+  reduceNum: (_: Number) => void;
   isAuthorized: () => boolean;
   fetch: () => void;
 }
@@ -32,10 +37,12 @@ export const useAccessStore = create<AccessControlStore>()(
   persist(
     (set, get) => ({
       token: "",
-      accessCode: "",
+      accessCode: "chat1223",
       needCode: true,
       hideUserApiKey: false,
       openaiUrl: DEFAULT_OPENAI_URL,
+      gpt16kNumsRemaining: "",
+      gpt4kNumsRemaining: "",
 
       enabledAccessControl() {
         get().fetch();
@@ -51,6 +58,55 @@ export const useAccessStore = create<AccessControlStore>()(
       updateOpenAiUrl(url: string) {
         set(() => ({ openaiUrl: url }));
       },
+
+      getUserUseNum() {
+        fetch(
+          "https://219.238.169.198:9040/gpt-admin-api/biz/gptUser/selectNum",
+          {
+            body: JSON.stringify({
+              userId: window.localStorage.getItem("userId"),
+              token: window.localStorage.getItem("token"),
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+            method: "POST",
+          },
+        ).then(async (res) => {
+          let resJson = await res.json();
+          console.log("resJson", resJson);
+          if (resJson.code == 200) {
+            set(() => ({
+              gpt4NumsRemaining: resJson.gpt4NumsRemaining,
+              gpt16kNumsRemaining: resJson.gpt16kNumsRemaining,
+            }));
+          }
+        });
+      },
+
+      reduceNum(gptVer: any) {
+        fetch("https://219.238.169.198:9040/gpt-admin-api/biz/gptUser/optNum", {
+          body: JSON.stringify({
+            userId: window.localStorage.getItem("userId"),
+            token: window.localStorage.getItem("token"),
+            gptVer: gptVer,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "POST",
+        }).then(async (res) => {
+          let resJson = await res.json();
+          console.log("resJson", resJson);
+          if (resJson.code == 200) {
+            set(() => ({
+              gpt4NumsRemaining: resJson.gpt4NumsRemaining,
+              gpt16kNumsRemaining: resJson.gpt16kNumsRemaining,
+            }));
+          }
+        });
+      },
+
       isAuthorized() {
         get().fetch();
 
