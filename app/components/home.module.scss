@@ -567,3 +567,35 @@
   color: #666;
   padding-bottom: 5px;
 }
+
+.update-mask{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.3);
+}
+.update-text{
+  position: fixed;
+  width: 300px;
+  padding: 30px;
+  box-sizing: border-box;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  .list{
+    line-height: 1.6;
+  }
+  .title{
+    font-weight: bold;
+  }
+  .button{
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
+}

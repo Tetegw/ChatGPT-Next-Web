@@ -610,9 +610,15 @@ export function Chat() {
     chatStore.onUserInput(userInput).then(() => {
       setIsLoading(false);
       if (session.mask.modelConfig.model == "gpt-3.5-turbo-16k") {
-        accessStore.reduceNum(
-          session.mask.modelConfig.model == "gpt-3.5-turbo-16k" ? 2 : 0,
-        );
+        accessStore.reduceNum({
+          gptVer: session.mask.modelConfig.model == "gpt-3.5-turbo-16k" ? 2 : 0,
+          callback: (resJson: any) => {
+            if (resJson.code == 9990 || resJson.code == 9991) {
+              showToast("登录失效");
+              navigate(Path.Login);
+            }
+          },
+        });
       }
     });
     localStorage.setItem(LAST_INPUT_KEY, userInput);
@@ -656,7 +662,12 @@ export function Chat() {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     // 调用查次数的接口
-    accessStore.getUserUseNum();
+    accessStore.getUserUseNum((resJson: any) => {
+      if (resJson.code == 9990 || resJson.code == 9991) {
+        showToast("登录失效");
+        navigate(Path.Login);
+      }
+    });
   }, []);
 
   // check if should send message

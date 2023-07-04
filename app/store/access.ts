@@ -21,8 +21,8 @@ export interface AccessControlStore {
   updateCode: (_: string) => void;
   updateOpenAiUrl: (_: string) => void;
   enabledAccessControl: () => boolean;
-  getUserUseNum: () => void;
-  reduceNum: (_: Number) => void;
+  getUserUseNum: (_: any) => void;
+  reduceNum: (_: any) => void;
   isAuthorized: () => boolean;
   fetch: () => void;
 }
@@ -59,7 +59,7 @@ export const useAccessStore = create<AccessControlStore>()(
         set(() => ({ openaiUrl: url }));
       },
 
-      getUserUseNum() {
+      getUserUseNum(callback: any) {
         fetch(
           "https://219.238.169.198:9040/gpt-admin-api/biz/gptUser/selectNum",
           {
@@ -80,16 +80,18 @@ export const useAccessStore = create<AccessControlStore>()(
               gpt4NumsRemaining: resJson.gpt4NumsRemaining,
               gpt16kNumsRemaining: resJson.gpt16kNumsRemaining,
             }));
+          } else {
+            callback && callback(resJson);
           }
         });
       },
 
-      reduceNum(gptVer: any) {
+      reduceNum(params: any) {
         fetch("https://219.238.169.198:9040/gpt-admin-api/biz/gptUser/optNum", {
           body: JSON.stringify({
             userId: window.localStorage.getItem("userId"),
             token: window.localStorage.getItem("token"),
-            gptVer: gptVer,
+            gptVer: params.gptVer,
           }),
           headers: {
             "Content-Type": "application/json",
@@ -103,6 +105,8 @@ export const useAccessStore = create<AccessControlStore>()(
               gpt4NumsRemaining: resJson.gpt4NumsRemaining,
               gpt16kNumsRemaining: resJson.gpt16kNumsRemaining,
             }));
+          } else {
+            params.callback && params.callback(resJson);
           }
         });
       },

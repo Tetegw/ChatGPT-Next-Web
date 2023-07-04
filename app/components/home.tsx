@@ -16,6 +16,7 @@ import { Path, SlotID } from "../constant";
 import { ErrorBoundary } from "./error";
 
 import { getLang } from "../locales";
+import { IconButton } from "./button";
 
 import {
   HashRouter as Router,
@@ -117,9 +118,14 @@ function Screen() {
   const isLogin = location.pathname === Path.Login;
   const isMobileScreen = useMobileScreen();
   const navigate = useNavigate();
+  const [showUpdate, setShowUpdate] = useState(false);
 
   useEffect(() => {
     loadAsyncGoogleFont();
+
+    if (window.localStorage.getItem("version") != "2023070401") {
+      setShowUpdate(true);
+    }
     // 判断登录，没登录就跳转到登录页面
     if (!isLogin) {
       if (
@@ -162,6 +168,30 @@ function Screen() {
               <Route path={Path.Chat} element={<Chat />} />
               <Route path={Path.Settings} element={<Settings />} />
             </Routes>
+          </div>
+        </>
+      )}
+      {showUpdate && (
+        <>
+          <div className={styles["update-mask"]}>
+            <div className={styles["update-text"]}>
+              <div className={styles["title"]}>更新说明</div>
+              <div className={styles["list"]}>
+                <br></br>1. 增加登录功能
+                <br></br>2. 去掉填写授权码
+                <br></br>3. 增加模型16k使用次数限制
+              </div>
+              <div className={styles["button"]}>
+                <IconButton
+                  text="确定"
+                  type="primary"
+                  onClick={() => {
+                    setShowUpdate(false);
+                    window.localStorage.setItem("version", "2023070401");
+                  }}
+                />
+              </div>
+            </div>
           </div>
         </>
       )}
