@@ -609,9 +609,11 @@ export function Chat() {
     setIsLoading(true);
     chatStore.onUserInput(userInput).then(() => {
       setIsLoading(false);
-      accessStore.reduceNum(
-        session.mask.modelConfig.model == "gpt-3.5-turbo-16k" ? 2 : 0,
-      );
+      if (session.mask.modelConfig.model == "gpt-3.5-turbo-16k") {
+        accessStore.reduceNum(
+          session.mask.modelConfig.model == "gpt-3.5-turbo-16k" ? 2 : 0,
+        );
+      }
     });
     localStorage.setItem(LAST_INPUT_KEY, userInput);
     setUserInput("");
