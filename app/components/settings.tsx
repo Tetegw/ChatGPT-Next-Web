@@ -491,7 +491,7 @@ export function Settings() {
               }
             ></input>
           </ListItem>
-          <ListItem
+          {/* <ListItem
             title={Locale.Settings.Token.Title}
             subTitle={Locale.Settings.Token.SubTitle}
           >
@@ -515,7 +515,7 @@ export function Settings() {
                 accessStore.updateOpenAiUrl(e.currentTarget.value)
               }
             ></input>
-          </ListItem>
+          </ListItem> */}
 
           {/* <ListItem
             title={Locale.Settings.AccessCode.Title}
