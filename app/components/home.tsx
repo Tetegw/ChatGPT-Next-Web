@@ -124,7 +124,7 @@ function Screen() {
   useEffect(() => {
     loadAsyncGoogleFont();
 
-    if (window.localStorage.getItem("version") != "2023070401") {
+    if (window.localStorage.getItem("version") != "2023070501") {
       setShowUpdate(true);
     }
     // 判断登录，没登录就跳转到登录页面
@@ -192,7 +192,7 @@ function Screen() {
                   type="primary"
                   onClick={() => {
                     setShowUpdate(false);
-                    window.localStorage.setItem("version", "2023070401");
+                    window.localStorage.setItem("version", "2023070501");
                   }}
                 />
               </div>
