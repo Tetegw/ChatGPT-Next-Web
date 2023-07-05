@@ -61,7 +61,7 @@ export const useAccessStore = create<AccessControlStore>()(
 
       getUserUseNum(callback: any) {
         fetch(
-          "http://219.238.169.198:9010/gpt-admin-api/biz/gptUser/selectNum",
+          "https://azure-api.shcklm.com:9040/gpt-admin-api/biz/gptUser/selectNum",
           {
             body: JSON.stringify({
               userId: window.localStorage.getItem("userId"),
@@ -88,18 +88,21 @@ export const useAccessStore = create<AccessControlStore>()(
       },
 
       reduceNum(params: any) {
-        fetch("http://219.238.169.198:9010/gpt-admin-api/biz/gptUser/optNum", {
-          body: JSON.stringify({
-            userId: window.localStorage.getItem("userId"),
-            token: window.localStorage.getItem("token"),
-            gptVer: params.gptVer,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-            "Content-Security-Policy": "upgrade-insecure-requests",
+        fetch(
+          "https://azure-api.shcklm.com:9040/gpt-admin-api/biz/gptUser/optNum",
+          {
+            body: JSON.stringify({
+              userId: window.localStorage.getItem("userId"),
+              token: window.localStorage.getItem("token"),
+              gptVer: params.gptVer,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+              "Content-Security-Policy": "upgrade-insecure-requests",
+            },
+            method: "POST",
           },
-          method: "POST",
-        }).then(async (res) => {
+        ).then(async (res) => {
           let resJson = await res.json();
           console.log("resJson", resJson);
           if (resJson.code == 200) {
