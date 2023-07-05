@@ -30,6 +30,7 @@ export function Login() {
         }),
         headers: {
           "Content-Type": "application/json",
+          "Content-Security-Policy": "upgrade-insecure-requests",
         },
         method: "POST",
       },
