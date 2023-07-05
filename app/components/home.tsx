@@ -178,10 +178,11 @@ function Screen() {
             <div className={styles["update-text"]}>
               <div className={styles["title"]}>更新说明</div>
               <div className={styles["list"]}>
-                <br></br>1. 增加登录功能
-                <br></br>2. 去掉填写授权码
-                <br></br>3. 增加模型16k使用次数限制
-                <br></br>4. 一些UI优化
+                <br></br>1、 新增用户登录。
+                <br></br>2、 去除授权码验证。
+                <br></br>3、 新增16K模型使用次数限制。
+                <br></br>4、
+                进行了一些UI布局的优化，修复了部分场景下布局错乱的问题。
               </div>
               <div className={styles["sub-title"]}>
                 提示：更新版本后如果出现异常情况，请至设置页【清除数据】后尝试
