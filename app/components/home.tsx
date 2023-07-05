@@ -30,6 +30,7 @@ import { useAppConfig } from "../store/config";
 import { AuthPage } from "./auth";
 import { Login } from "./login";
 import { getClientConfig } from "../config/client";
+import { api } from "../client/api";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
@@ -180,6 +181,10 @@ function Screen() {
                 <br></br>1. 增加登录功能
                 <br></br>2. 去掉填写授权码
                 <br></br>3. 增加模型16k使用次数限制
+                <br></br>4. 一些UI优化
+              </div>
+              <div className={styles["sub-title"]}>
+                提示：更新版本后如果出现异常情况，请至设置页【清除数据】后尝试
               </div>
               <div className={styles["button"]}>
                 <IconButton
@@ -199,8 +204,20 @@ function Screen() {
   );
 }
 
+export function useLoadData() {
+  // const config = useAppConfig();
+  // useEffect(() => {
+  //   (async () => {
+  //     const models = await api.llm.models();
+  //     config.mergeModels(models);
+  //   })();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
+}
+
 export function Home() {
   useSwitchTheme();
+  useLoadData();
 
   useEffect(() => {
     console.log("[Config] got config from build time", getClientConfig());
