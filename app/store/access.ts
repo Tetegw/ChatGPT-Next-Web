@@ -61,7 +61,7 @@ export const useAccessStore = create<AccessControlStore>()(
 
       getUserUseNum(callback: any) {
         fetch(
-          "https://219.238.169.198:9040/gpt-admin-api/biz/gptUser/selectNum",
+          "http://219.238.169.198:9010/gpt-admin-api/biz/gptUser/selectNum",
           {
             body: JSON.stringify({
               userId: window.localStorage.getItem("userId"),
@@ -87,7 +87,7 @@ export const useAccessStore = create<AccessControlStore>()(
       },
 
       reduceNum(params: any) {
-        fetch("https://219.238.169.198:9040/gpt-admin-api/biz/gptUser/optNum", {
+        fetch("http://219.238.169.198:9010/gpt-admin-api/biz/gptUser/optNum", {
           body: JSON.stringify({
             userId: window.localStorage.getItem("userId"),
             token: window.localStorage.getItem("token"),

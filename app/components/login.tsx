@@ -22,7 +22,7 @@ export function Login() {
   const login = async () => {
     console.log("account", account, password);
     const res = await fetch(
-      "https://219.238.169.198:9040/gpt-admin-api/biz/gptUser/login",
+      "http://219.238.169.198:9010/gpt-admin-api/biz/gptUser/login",
       {
         body: JSON.stringify({
           userAcct: account,
