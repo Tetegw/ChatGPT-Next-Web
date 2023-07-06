@@ -124,7 +124,7 @@ function Screen() {
   useEffect(() => {
     loadAsyncGoogleFont();
 
-    if (window.localStorage.getItem("version") != "2023070501") {
+    if (window.localStorage.getItem("version") != "2023070601") {
       setShowUpdate(true);
     }
     // 判断登录，没登录就跳转到登录页面
@@ -181,7 +181,8 @@ function Screen() {
                 <br></br>1、 新增用户登录。
                 <br></br>2、 去除授权码验证。
                 <br></br>3、 新增16K模型使用次数限制。
-                <br></br>4、
+                <br></br>4、 新增gpt-4模型。
+                <br></br>5、
                 进行了一些UI布局的优化，修复了部分场景下布局错乱的问题。
               </div>
               <div className={styles["sub-title"]}>
@@ -193,7 +194,7 @@ function Screen() {
                   type="primary"
                   onClick={() => {
                     setShowUpdate(false);
-                    window.localStorage.setItem("version", "2023070501");
+                    window.localStorage.setItem("version", "2023070601");
                   }}
                 />
               </div>
