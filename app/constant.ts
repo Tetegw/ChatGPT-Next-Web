@@ -65,10 +65,10 @@ Current model: {{model}}
 Current time: {{time}}`;
 
 export const DEFAULT_MODELS = [
-  // {
-  //   name: "gpt-4",
-  //   available: false,
-  // },
+  {
+    name: "gpt-4",
+    available: true,
+  },
   // {
   //   name: "gpt-4-0314",
   //   available: false,

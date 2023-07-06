@@ -442,8 +442,8 @@ export function Settings() {
                 accessStore.updateToken(e.currentTarget.value);
               }}
             />
-          </ListItem>
-           */}
+          </ListItem> */}
+
           <ListItem title={Locale.Settings.Avatar}>
             <Popover
               onClose={() => setShowEmojiPicker(false)}

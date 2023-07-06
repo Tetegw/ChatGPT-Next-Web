@@ -15,7 +15,7 @@ export interface AccessControlStore {
   hideBalanceQuery: boolean;
 
   gpt16kNumsRemaining: string;
-  gpt4kNumsRemaining: string;
+  gpt4NumsRemaining: string;
 
   updateToken: (_: string) => void;
   updateCode: (_: string) => void;
@@ -42,7 +42,7 @@ export const useAccessStore = create<AccessControlStore>()(
       hideUserApiKey: false,
       openaiUrl: DEFAULT_OPENAI_URL,
       gpt16kNumsRemaining: "",
-      gpt4kNumsRemaining: "",
+      gpt4NumsRemaining: "",
       hideBalanceQuery: false,
 
       enabledAccessControl() {

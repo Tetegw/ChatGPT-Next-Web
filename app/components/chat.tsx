@@ -593,6 +593,17 @@ export function Chat() {
       }
     }
 
+    if (session.mask.modelConfig.model == "gpt-4") {
+      if (
+        Number(accessStore.gpt4NumsRemaining) <= 0 &&
+        Number(accessStore.gpt4NumsRemaining) != -99
+      ) {
+        console.log("次数不足");
+        showToast("今日使用次数不足");
+        return;
+      }
+    }
+
     const matchCommand = chatCommands.match(userInput);
     if (matchCommand.matched) {
       setUserInput("");
@@ -603,9 +614,17 @@ export function Chat() {
     setIsLoading(true);
     chatStore.onUserInput(userInput).then(() => {
       setIsLoading(false);
-      if (session.mask.modelConfig.model == "gpt-3.5-turbo-16k") {
+      if (
+        session.mask.modelConfig.model == "gpt-3.5-turbo-16k" ||
+        session.mask.modelConfig.model == "gpt-4"
+      ) {
         accessStore.reduceNum({
-          gptVer: session.mask.modelConfig.model == "gpt-3.5-turbo-16k" ? 2 : 0,
+          gptVer:
+            session.mask.modelConfig.model == "gpt-3.5-turbo-16k"
+              ? 2
+              : session.mask.modelConfig.model == "gpt-4"
+              ? 1
+              : 0,
           callback: (resJson: any) => {
             if (resJson.code == 9990 || resJson.code == 9991) {
               showToast("登录失效");
@@ -950,6 +969,22 @@ export function Chat() {
         >
           gpt-3.5-16k
         </div>
+        <div
+          className={`window-check-model-item ${
+            session.mask.modelConfig.model == "gpt-4" ? "active" : ""
+          }`}
+          onClick={() => {
+            const mask = { ...session.mask };
+            mask.modelConfig.model = "gpt-4";
+            mask.modelConfig.max_tokens = 2000;
+            mask.modelConfig.compressMessageLengthThreshold = 2000;
+            // if user changed current session mask, it will disable auto sync
+            mask.syncGlobalConfig = false;
+            chatStore.updateCurrentSession((session) => (session.mask = mask));
+          }}
+        >
+          gpt-4.0
+        </div>
       </div>
 
       <div
@@ -1115,6 +1150,13 @@ export function Chat() {
             <div className={styles["model-times"]}>
               模型{session.mask.modelConfig.model}今日剩余次数：
               {accessStore.gpt16kNumsRemaining}
+            </div>
+          )}
+        {accessStore.gpt4NumsRemaining != "-99" &&
+          session.mask.modelConfig.model == "gpt-4" && (
+            <div className={styles["model-times"]}>
+              模型{session.mask.modelConfig.model}今日剩余次数：
+              {accessStore.gpt4NumsRemaining}
             </div>
           )}
         {/* {gpt4NumsRemaining != -99 && session.mask.modelConfig.model == "gpt-4.0-turbo" && <div className={styles["model-times"]}>模型{session.mask.modelConfig.model}今日剩余次数：{gpt4NumsRemaining}</div>} */}
