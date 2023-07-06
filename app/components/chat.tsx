@@ -944,6 +944,7 @@ export function Chat() {
             mask.modelConfig.model = "gpt-3.5-turbo";
             mask.modelConfig.max_tokens = 2000;
             mask.modelConfig.compressMessageLengthThreshold = 2000;
+            mask.modelConfig.historyMessageCount = 5;
             // if user changed current session mask, it will disable auto sync
             mask.syncGlobalConfig = false;
             chatStore.updateCurrentSession((session) => (session.mask = mask));
@@ -962,6 +963,7 @@ export function Chat() {
             mask.modelConfig.model = "gpt-3.5-turbo-16k";
             mask.modelConfig.max_tokens = 4000;
             mask.modelConfig.compressMessageLengthThreshold = 4000;
+            mask.modelConfig.historyMessageCount = 5;
             // if user changed current session mask, it will disable auto sync
             mask.syncGlobalConfig = false;
             chatStore.updateCurrentSession((session) => (session.mask = mask));
@@ -977,6 +979,7 @@ export function Chat() {
             const mask = { ...session.mask };
             mask.modelConfig.model = "gpt-4";
             mask.modelConfig.max_tokens = 2000;
+            mask.modelConfig.historyMessageCount = 1;
             mask.modelConfig.compressMessageLengthThreshold = 2000;
             // if user changed current session mask, it will disable auto sync
             mask.syncGlobalConfig = false;
