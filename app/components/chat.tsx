@@ -593,7 +593,7 @@ export function Chat() {
       }
     }
 
-    if (session.mask.modelConfig.model == "gpt-4") {
+    if (session.mask.modelConfig.model == "gpt-4-poe") {
       if (
         Number(accessStore.gpt4NumsRemaining) <= 0 &&
         Number(accessStore.gpt4NumsRemaining) != -99
@@ -616,13 +616,13 @@ export function Chat() {
       setIsLoading(false);
       if (
         session.mask.modelConfig.model == "gpt-3.5-turbo-16k" ||
-        session.mask.modelConfig.model == "gpt-4"
+        session.mask.modelConfig.model == "gpt-4-poe"
       ) {
         accessStore.reduceNum({
           gptVer:
             session.mask.modelConfig.model == "gpt-3.5-turbo-16k"
               ? 2
-              : session.mask.modelConfig.model == "gpt-4"
+              : session.mask.modelConfig.model == "gpt-4-poe"
               ? 1
               : 0,
           callback: (resJson: any) => {
@@ -979,11 +979,11 @@ export function Chat() {
           </div>
           <div
             className={`window-check-model-item ${
-              session.mask.modelConfig.model == "gpt-4" ? "active" : ""
+              session.mask.modelConfig.model == "gpt-4-poe" ? "active" : ""
             }`}
             onClick={() => {
               const mask = { ...session.mask };
-              mask.modelConfig.model = "gpt-4";
+              mask.modelConfig.model = "gpt-4-poe";
               mask.modelConfig.max_tokens = 2000;
               mask.modelConfig.historyMessageCount = 1;
               mask.modelConfig.compressMessageLengthThreshold = 2000;
@@ -994,7 +994,7 @@ export function Chat() {
               );
             }}
           >
-            gpt-4.0
+            gpt-4-poe
           </div>
         </div>
       </div>
@@ -1165,7 +1165,7 @@ export function Chat() {
             </div>
           )}
         {accessStore.gpt4NumsRemaining != "-99" &&
-          session.mask.modelConfig.model == "gpt-4" && (
+          session.mask.modelConfig.model == "gpt-4-poe" && (
             <div className={styles["model-times"]}>
               模型{session.mask.modelConfig.model}今日剩余次数：
               {accessStore.gpt4NumsRemaining}
