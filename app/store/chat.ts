@@ -509,7 +509,7 @@ export const useChatStore = create<ChatStore>()(
           api.llm.chat({
             messages: topicMessages,
             config: {
-              model: "gpt-3.5-turbo",
+              model: "gpt-3.5-turbo-0613",
             },
             onFinish(message) {
               get().updateCurrentSession(

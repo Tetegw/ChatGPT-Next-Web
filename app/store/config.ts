@@ -36,7 +36,7 @@ export const DEFAULT_CONFIG = {
   models: DEFAULT_MODELS as any as LLMModel[],
 
   modelConfig: {
-    model: "gpt-3.5-turbo" as ModelType,
+    model: "gpt-3.5-turbo-0613" as ModelType,
     temperature: 0.3,
     top_p: 1,
     max_tokens: 2000,
@@ -76,7 +76,7 @@ export function limitModel(name: string) {
   const allModels = useAppConfig.getState().models;
   return allModels.some((m) => m.name === name && m.available)
     ? name
-    : "gpt-3.5-turbo";
+    : "gpt-3.5-turbo-0613";
 }
 
 export const ModalConfigValidator = {

@@ -939,11 +939,13 @@ export function Chat() {
         <div className="window-check-model">
           <div
             className={`window-check-model-item ${
-              session.mask.modelConfig.model == "gpt-3.5-turbo" ? "active" : ""
+              session.mask.modelConfig.model == "gpt-3.5-turbo-0613"
+                ? "active"
+                : ""
             }`}
             onClick={() => {
               const mask = { ...session.mask };
-              mask.modelConfig.model = "gpt-3.5-turbo";
+              mask.modelConfig.model = "gpt-3.5-turbo-0613";
               mask.modelConfig.max_tokens = 2000;
               mask.modelConfig.compressMessageLengthThreshold = 2000;
               mask.modelConfig.historyMessageCount = 5;
@@ -983,7 +985,7 @@ export function Chat() {
             }`}
             onClick={() => {
               const mask = { ...session.mask };
-              mask.modelConfig.model = "gpt-4";
+              mask.modelConfig.model = "gpt-4-plus";
               mask.modelConfig.max_tokens = 2000;
               mask.modelConfig.historyMessageCount = 1;
               mask.modelConfig.compressMessageLengthThreshold = 2000;
