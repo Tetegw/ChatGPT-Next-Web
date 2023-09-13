@@ -593,7 +593,7 @@ export function Chat() {
       }
     }
 
-    if (session.mask.modelConfig.model == "gpt-4") {
+    if (session.mask.modelConfig.model == "gpt-4-plus") {
       if (
         Number(accessStore.gpt4NumsRemaining) <= 0 &&
         Number(accessStore.gpt4NumsRemaining) != -99
@@ -616,13 +616,13 @@ export function Chat() {
       setIsLoading(false);
       if (
         session.mask.modelConfig.model == "gpt-3.5-turbo-16k" ||
-        session.mask.modelConfig.model == "gpt-4"
+        session.mask.modelConfig.model == "gpt-4-plus"
       ) {
         accessStore.reduceNum({
           gptVer:
             session.mask.modelConfig.model == "gpt-3.5-turbo-16k"
               ? 2
-              : session.mask.modelConfig.model == "gpt-4"
+              : session.mask.modelConfig.model == "gpt-4-plus"
               ? 1
               : 0,
           callback: (resJson: any) => {
@@ -981,7 +981,7 @@ export function Chat() {
           </div>
           <div
             className={`window-check-model-item ${
-              session.mask.modelConfig.model == "gpt-4" ? "active" : ""
+              session.mask.modelConfig.model == "gpt-4-plus" ? "active" : ""
             }`}
             onClick={() => {
               const mask = { ...session.mask };
@@ -996,7 +996,7 @@ export function Chat() {
               );
             }}
           >
-            gpt-4.0
+            gpt-4-plus
           </div>
         </div>
       </div>
@@ -1167,13 +1167,13 @@ export function Chat() {
             </div>
           )}
         {accessStore.gpt4NumsRemaining != "-99" &&
-          session.mask.modelConfig.model == "gpt-4" && (
+          session.mask.modelConfig.model == "gpt-4-plus" && (
             <div className={styles["model-times"]}>
               模型{session.mask.modelConfig.model}今日剩余次数：
               {accessStore.gpt4NumsRemaining}
             </div>
           )}
-        {/* {gpt4NumsRemaining != -99 && session.mask.modelConfig.model == "gpt-4.0-turbo" && <div className={styles["model-times"]}>模型{session.mask.modelConfig.model}今日剩余次数：{gpt4NumsRemaining}</div>} */}
+        {/* {gpt4NumsRemaining != -99 && session.mask.modelConfig.model == "gpt-4-plus" && <div className={styles["model-times"]}>模型{session.mask.modelConfig.model}今日剩余次数：{gpt4NumsRemaining}</div>} */}
         <div className={styles["chat-input-panel-inner"]}>
           <textarea
             ref={inputRef}
