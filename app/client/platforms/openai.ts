@@ -128,9 +128,9 @@ export class ChatGPTApi implements LLMApi {
                 extraInfo = prettyObject(resJson);
               } catch {}
 
-              if (res.status === 401) {
-                responseTexts.push(Locale.Error.Unauthorized);
-              }
+              // if (res.status === 401) {
+              //   responseTexts.push(Locale.Error.Unauthorized);
+              // }
 
               if (extraInfo) {
                 responseTexts.push(extraInfo);
@@ -207,9 +207,9 @@ export class ChatGPTApi implements LLMApi {
       }),
     ]);
 
-    if (used.status === 401) {
-      throw new Error(Locale.Error.Unauthorized);
-    }
+    // if (used.status === 401) {
+    //   throw new Error(Locale.Error.Unauthorized);
+    // }
 
     if (!used.ok || !subs.ok) {
       throw new Error("Failed to query usage from openai");

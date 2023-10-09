@@ -593,7 +593,7 @@ export function Chat() {
       }
     }
 
-    if (session.mask.modelConfig.model == "gpt-4-plus") {
+    if (session.mask.modelConfig.model == "gpt-4") {
       if (
         Number(accessStore.gpt4NumsRemaining) <= 0 &&
         Number(accessStore.gpt4NumsRemaining) != -99
@@ -616,13 +616,13 @@ export function Chat() {
       setIsLoading(false);
       if (
         session.mask.modelConfig.model == "gpt-3.5-turbo-16k" ||
-        session.mask.modelConfig.model == "gpt-4-plus"
+        session.mask.modelConfig.model == "gpt-4"
       ) {
         accessStore.reduceNum({
           gptVer:
             session.mask.modelConfig.model == "gpt-3.5-turbo-16k"
               ? 2
-              : session.mask.modelConfig.model == "gpt-4-plus"
+              : session.mask.modelConfig.model == "gpt-4"
               ? 1
               : 0,
           callback: (resJson: any) => {
@@ -981,11 +981,11 @@ export function Chat() {
           </div>
           <div
             className={`window-check-model-item ${
-              session.mask.modelConfig.model == "gpt-4-plus" ? "active" : ""
+              session.mask.modelConfig.model == "gpt-4" ? "active" : ""
             }`}
             onClick={() => {
               const mask = { ...session.mask };
-              mask.modelConfig.model = "gpt-4-plus";
+              mask.modelConfig.model = "gpt-4";
               mask.modelConfig.max_tokens = 2000;
               mask.modelConfig.historyMessageCount = 1;
               mask.modelConfig.compressMessageLengthThreshold = 2000;
@@ -996,7 +996,7 @@ export function Chat() {
               );
             }}
           >
-            gpt-4-plus
+            gpt-4
           </div>
         </div>
       </div>
@@ -1167,13 +1167,13 @@ export function Chat() {
             </div>
           )}
         {accessStore.gpt4NumsRemaining != "-99" &&
-          session.mask.modelConfig.model == "gpt-4-plus" && (
+          session.mask.modelConfig.model == "gpt-4" && (
             <div className={styles["model-times"]}>
               模型{session.mask.modelConfig.model}今日剩余次数：
               {accessStore.gpt4NumsRemaining}
             </div>
           )}
-        {/* {gpt4NumsRemaining != -99 && session.mask.modelConfig.model == "gpt-4-plus" && <div className={styles["model-times"]}>模型{session.mask.modelConfig.model}今日剩余次数：{gpt4NumsRemaining}</div>} */}
+        {/* {gpt4NumsRemaining != -99 && session.mask.modelConfig.model == "gpt-4" && <div className={styles["model-times"]}>模型{session.mask.modelConfig.model}今日剩余次数：{gpt4NumsRemaining}</div>} */}
         <div className={styles["chat-input-panel-inner"]}>
           <textarea
             ref={inputRef}

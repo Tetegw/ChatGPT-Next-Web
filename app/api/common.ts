@@ -56,11 +56,11 @@ export async function requestOpenai(req: NextRequest) {
 
       const jsonBody = JSON.parse(clonedBody);
 
-      if ((jsonBody?.model ?? "").includes("gpt-4-plus")) {
+      if ((jsonBody?.model ?? "").includes("gpt-4")) {
         return NextResponse.json(
           {
             error: true,
-            message: "you are not allowed to use gpt-4-plus model",
+            message: "you are not allowed to use gpt-4 model",
           },
           {
             status: 403,
